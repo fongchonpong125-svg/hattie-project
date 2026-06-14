@@ -26,8 +26,8 @@ export const useGardenStore=create<Store>((set,get)=>({
   parentAuthed:sessionStorage.getItem('hattie-parent')==='yes',soundEnabled:true,showPlantWord:false,
   hydrate:async()=>{try{const saved=await storage.getItem<Partial<Store>>('state');if(saved)set({...saved,records:(saved.records??[]).filter(r=>r.sessionId),sessions:saved.sessions??[],reviewPlan:saved.reviewPlan??createReviewPlan(),wallet:resetDay(saved.wallet??initialWallet()),hydrated:true});else set({hydrated:true})}catch{await storage.clear();set({hydrated:true})}},
   answer:(item,type,selected,seconds,sessionId,mode)=>{
-    const state=get(), correct=selected===(type==='plant-category'?item.category:item.word), now=new Date().toISOString()
-    const record:AnswerRecord={id:id(),word:item.word,questionType:type,correctAnswer:type==='plant-category'?item.category:item.word,selectedAnswer:selected,isCorrect:correct,firstTryCorrect:correct,timeSpent:seconds,date:now,sessionId,mode,category:item.category,confusedWith:correct?undefined:selected}
+    const state=get(), expected=type==='plant-category'?item.category:type==='missing-first-letter'?item.word[0].toLowerCase():item.word, correct=selected===expected, now=new Date().toISOString()
+    const record:AnswerRecord={id:id(),word:item.word,questionType:type,correctAnswer:expected,selectedAnswer:selected,isCorrect:correct,firstTryCorrect:correct,timeSpent:seconds,date:now,sessionId,mode,category:item.category,confusedWith:correct?undefined:selected}
     const reviewPlan=mode==='review'?markWordReviewed(state.reviewPlan,item.word,correct,type,now):state.reviewPlan
     set({records:[...state.records,record],reviewPlan,mastery:{...state.mastery,[item.word]:{...updateMastery(state.mastery[item.word],correct,now),word:item.word}}});persist(get());return record
   },

@@ -22,6 +22,23 @@ export function createSessionSummary(sessionId:string,mode:SessionMode,records:A
 }
 
 const shuffle = <T,>(items: T[]) => [...items].sort(() => Math.random() - .5)
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
+const learnedInitials = [...new Set(allWords.map(item => item.word[0].toLowerCase()))]
+
+export function createMissingFirstLetterQuestion(item:WordItem,preferredDistractors:string[]=[]):Question {
+  const correctAnswer=item.word[0].toLowerCase()
+  const distractors:string[]=[]
+  for(const letter of [...preferredDistractors,...shuffle(learnedInitials),...shuffle(alphabet)]){
+    const normalized=letter.toLowerCase()
+    if(normalized!==correctAnswer&&!distractors.includes(normalized))distractors.push(normalized)
+    if(distractors.length===2)break
+  }
+  return {item,type:'missing-first-letter',options:[],missingWord:`_${item.word.slice(1)}`,correctAnswer,letterOptions:shuffle([correctAnswer,...distractors])}
+}
+
+export function createMissingLetterQuestions(words:WordItem[]=allWords,count=8):Question[] {
+  return shuffle(words).slice(0,count).map(item=>createMissingFirstLetterQuestion(item))
+}
 
 export function createReviewPlan(words:WordItem[]=allWords,cycleId:string=crypto.randomUUID(),startedAt=new Date().toISOString()):ReviewPlan {
   return {cycleId,startedAt,totalWords:words.length,reviewedWords:0,items:words.map(word=>({word:word.word,reviewedInCurrentCycle:false,wrongCountInCycle:0}))}

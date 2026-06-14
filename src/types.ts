@@ -1,9 +1,12 @@
-export type QuestionType = 'picture-to-word' | 'word-to-picture' | 'listen-to-picture' | 'plant-category'
+export type QuestionType = 'picture-to-word' | 'word-to-picture' | 'listen-to-picture' | 'plant-category' | 'missing-first-letter'
 export type Category = 'root' | 'above-ground' | 'alphabet'
-export type SessionMode = 'review' | 'plants' | 'wrong-redo'
+export type SessionMode = 'review' | 'plants' | 'missing-letter' | 'wrong-redo'
 
 export type WordItem = { word: string; chinese: string; category: Category; letter?: string; image: string }
-export type Question = { item: WordItem; type: QuestionType; options: WordItem[] }
+export type Question = {
+  item: WordItem; type: QuestionType; options: WordItem[]
+  missingWord?: string; correctAnswer?: string; letterOptions?: string[]
+}
 
 export type AnswerRecord = {
   id: string; word: string; questionType: QuestionType; correctAnswer: string; selectedAnswer: string

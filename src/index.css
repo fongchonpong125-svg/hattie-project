@@ -157,3 +157,41 @@
 
 .answer-option,.plant-choices button{transition:background-color .22s,border-color .22s,box-shadow .22s,opacity .22s,transform .22s}.answer-option:disabled,.plant-choices button:disabled{cursor:default}.option-correct{background:#cfe8b9!important;border-color:#68a64c!important;box-shadow:0 0 0 7px rgba(108,174,77,.18),0 8px 0 #609044!important;transform:translateY(-4px)}.option-wrong{background:#f4c5b7!important;border-color:#dc806d!important;box-shadow:0 0 0 6px rgba(219,126,106,.14),0 7px 0 #bd7565!important}.option-muted{opacity:.48}.revealed-answer{font:800 20px "Baloo 2";color:#45632c;margin-top:5px}.feedback.correct{border-color:#74ad52;background:#f0f9df}.feedback.wrong{border-color:#df9079;background:#fff1e9}.feedback-symbol{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:#75a957;color:#fff;border:6px solid #fff;box-shadow:0 6px 0 #5f8848;font:800 48px/1 "Baloo 2"}.feedback.wrong .feedback-symbol{background:#dc806d;box-shadow:0 6px 0 #b96c5a}.feedback p{font-size:20px;margin-bottom:0}.feedback.correct h3{color:#4f7d35}.feedback.wrong h3{color:#a55e50}
 .feedback{position:relative;inset:auto;min-height:120px;padding:14px 22px;margin:14px auto 0;display:flex;align-items:center;gap:14px;flex-wrap:nowrap}.feedback-symbol{width:52px;height:52px;font-size:36px;flex:none}.feedback-texts{flex:1;min-width:0;text-align:left}.feedback-texts h3{font-size:clamp(24px,3.8vw,40px);margin-bottom:2px}.feedback-texts p{font-size:clamp(15px,2vw,20px);margin:0}.feedback button{flex:none;min-height:46px;padding:8px 18px;font-size:16px;order:3}@media(max-width:600px){.feedback{inset:auto;min-height:190px;padding:14px;flex-direction:row}.feedback-symbol{width:58px;height:58px;font-size:38px}.feedback button{min-width:100px}}
+
+/* Four child modes fit in one iPad landscape viewport. */
+.big-actions{width:min(1040px,100%);grid-template-columns:repeat(2,minmax(0,1fr))}
+.big-action{min-height:clamp(112px,18vh,165px);padding:20px clamp(22px,4vw,48px);font-size:clamp(31px,4.3vw,52px);gap:20px}
+.big-action svg{width:clamp(48px,6vw,70px)}
+.coral{background:#dc8b70}
+
+.missing-letter-question{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(360px,1.1fr);align-items:center;gap:clamp(24px,5vw,70px);min-height:460px;padding:10px clamp(8px,2vw,24px)}
+.missing-letter-question .word-art-large{width:min(360px,38vw);height:min(360px,48vh);margin:0 auto}
+.missing-letter-work{display:flex;flex-direction:column;align-items:center}
+.missing-instruction{font:800 clamp(20px,2.5vw,28px) "Baloo 2";color:#71854e;margin-bottom:4px}
+.missing-letter-work h2{font:800 clamp(58px,8vw,96px)/1.05 "Baloo 2";letter-spacing:.04em;color:var(--green-dark);margin:2px 0 14px}
+.missing-listen{min-height:58px;margin-bottom:24px}
+.letter-options{display:grid;grid-template-columns:repeat(3,minmax(90px,1fr));gap:clamp(14px,2vw,22px);width:min(480px,100%)}
+.letter-options button{min-height:105px;border:5px solid #fff;border-radius:28px;background:#f1e7c7;color:var(--ink);font:800 clamp(44px,6vw,68px)/1 "Baloo 2";box-shadow:var(--shadow);transition:background-color .22s,border-color .22s,box-shadow .22s,opacity .22s,transform .22s}
+.letter-options button:active{transform:translateY(5px)}
+.letter-options button:disabled{cursor:default}
+.analysis-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0 22px}
+.analysis-summary span{padding:14px;background:#edf2df;border-radius:16px;color:#62734a}
+.analysis-summary strong{display:block;font:800 30px "Baloo 2";color:var(--green-dark)}
+
+@media (orientation:landscape){
+  .home-header{height:clamp(125px,18dvh,150px)}
+  .big-actions{gap:clamp(10px,1.8vh,16px);margin-top:0}
+  .big-action{min-height:clamp(100px,17vh,145px);border-radius:28px}
+  .missing-letter-question{min-height:auto;height:clamp(410px,67vh,560px)}
+  .missing-letter-question .word-art-large{height:clamp(240px,43vh,350px)}
+  .letter-options button{min-height:clamp(82px,14vh,110px)}
+}
+
+@media(max-width:700px),(orientation:portrait){
+  .big-actions{grid-template-columns:1fr}
+  .missing-letter-question{grid-template-columns:1fr;gap:14px;min-height:auto}
+  .missing-letter-question .word-art-large{width:min(250px,62vw);height:min(230px,27vh)}
+  .missing-letter-work h2{font-size:clamp(48px,13vw,76px)}
+  .letter-options button{min-height:82px}
+  .analysis-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+}

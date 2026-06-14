@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { allWords, wordImageMap } from './data'
-import { calculateScore, createReviewPlan, createSessionSummary, getNextReviewQuestions, markWordReviewed, statusFor, updateMastery } from './logic'
+import { calculateScore, createMissingFirstLetterQuestion, createMissingLetterQuestions, createReviewPlan, createSessionSummary, getNextReviewQuestions, markWordReviewed, statusFor, updateMastery } from './logic'
 import type { AnswerRecord } from './types'
 
 describe('learning rules', () => {
@@ -56,5 +56,26 @@ describe('learning rules', () => {
     expect(questions).toHaveLength(8)
     expect(questions.filter(question => unreviewed.has(question.item.word)).length).toBeGreaterThanOrEqual(5)
     expect(new Set(questions.map(question => question.item.word)).size).toBe(8)
+  })
+
+  it('creates a missing-first-letter question with three unique lowercase choices', () => {
+    const ginger = allWords.find(word => word.word === 'ginger')!
+    const question = createMissingFirstLetterQuestion(ginger, ['p', 'b'])
+    expect(question.type).toBe('missing-first-letter')
+    expect(question.missingWord).toBe('_inger')
+    expect(question.correctAnswer).toBe('g')
+    expect(question.letterOptions).toHaveLength(3)
+    expect(new Set(question.letterOptions).size).toBe(3)
+    expect(question.letterOptions).toContain('g')
+    expect(question.letterOptions!.every(letter => letter === letter.toLowerCase())).toBe(true)
+  })
+
+  it('handles multi-word and hyphenated missing-first-letter prompts', () => {
+    const questions = createMissingLetterQuestions(allWords, 62)
+    expect(questions).toHaveLength(62)
+    expect(questions.find(question => question.item.word === 'sweet potato')?.missingWord).toBe('_weet potato')
+    expect(questions.find(question => question.item.word === 'bell pepper')?.missingWord).toBe('_ell pepper')
+    expect(questions.find(question => question.item.word === 'x-ray')?.missingWord).toBe('_-ray')
+    expect(new Set(questions.map(question => question.item.word)).size).toBe(62)
   })
 })
