@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { allWords, wordImageMap } from './data'
-import { calculateScore, createMissingFirstLetterQuestion, createMissingLetterQuestions, createReviewPlan, createSessionSummary, getNextReviewQuestions, markWordReviewed, statusFor, updateMastery } from './logic'
+import { calculateScore, createMissingFirstLetterQuestion, createMissingLetterLevels, createMissingLetterQuestions, createReviewPlan, createSessionSummary, getNextReviewQuestions, markWordReviewed, statusFor, updateMastery } from './logic'
 import type { AnswerRecord } from './types'
 
 describe('learning rules', () => {
@@ -76,6 +76,16 @@ describe('learning rules', () => {
     expect(questions.find(question => question.item.word === 'sweet potato')?.missingWord).toBe('_weet potato')
     expect(questions.find(question => question.item.word === 'bell pepper')?.missingWord).toBe('_ell pepper')
     expect(questions.find(question => question.item.word === 'x-ray')?.missingWord).toBe('_-ray')
+    expect(new Set(questions.map(question => question.item.word)).size).toBe(62)
+  })
+
+  it('splits every missing-letter word into ordered eight-question levels without omissions', () => {
+    const levels = createMissingLetterLevels(allWords, 8)
+    expect(levels).toHaveLength(8)
+    expect(levels.slice(0, 7).every(level => level.length === 8)).toBe(true)
+    expect(levels.at(-1)).toHaveLength(6)
+    const questions = levels.flat()
+    expect(questions).toHaveLength(62)
     expect(new Set(questions.map(question => question.item.word)).size).toBe(62)
   })
 })

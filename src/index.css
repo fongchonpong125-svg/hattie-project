@@ -177,6 +177,19 @@
 .analysis-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0 22px}
 .analysis-summary span{padding:14px;background:#edf2df;border-radius:16px;color:#62734a}
 .analysis-summary strong{display:block;font:800 30px "Baloo 2";color:var(--green-dark)}
+.overall-progress{margin-bottom:12px;text-align:left}
+.overall-progress>div{display:flex;align-items:baseline;gap:12px;margin-bottom:7px;color:#687c49}
+.overall-progress span{font:800 18px "Baloo 2";color:var(--green-dark)}
+.overall-progress strong{font:800 21px "Baloo 2";margin-left:auto}
+.overall-progress small{font-weight:800}
+.overall-progress i,.complete-overall-progress i{display:block;height:14px;background:#e5e3d3;border-radius:20px;overflow:hidden}
+.overall-progress b,.complete-overall-progress b{display:block;height:100%;background:linear-gradient(90deg,#82a752,#f0bd3e);border-radius:inherit;transition:width .35s}
+.complete-overall-progress{width:min(520px,100%);margin:10px 0 4px;padding:12px 18px;background:#edf2df;border-radius:18px}
+.complete-overall-progress span{font-weight:900;color:#687c49}
+.complete-overall-progress strong{display:block;font:800 26px "Baloo 2";color:var(--green-dark)}
+.complete-overall-progress i{height:11px}
+.finish-actions.with-continue{grid-template-columns:repeat(4,1fr);width:min(900px,100%)}
+.finish-actions .continue-level{background:#d98968;box-shadow:0 5px 0 #a7624d}
 
 @media (orientation:landscape){
   .home-header{height:clamp(125px,18dvh,150px)}
@@ -194,4 +207,5 @@
   .missing-letter-work h2{font-size:clamp(48px,13vw,76px)}
   .letter-options button{min-height:82px}
   .analysis-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .finish-actions.with-continue{grid-template-columns:1fr}
 }

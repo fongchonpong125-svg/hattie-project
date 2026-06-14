@@ -40,6 +40,11 @@ export function createMissingLetterQuestions(words:WordItem[]=allWords,count=8):
   return shuffle(words).slice(0,count).map(item=>createMissingFirstLetterQuestion(item))
 }
 
+export function createMissingLetterLevels(words:WordItem[]=allWords,levelSize=8):Question[][] {
+  const questions=shuffle(words).map(item=>createMissingFirstLetterQuestion(item))
+  return Array.from({length:Math.ceil(questions.length/levelSize)},(_,index)=>questions.slice(index*levelSize,(index+1)*levelSize))
+}
+
 export function createReviewPlan(words:WordItem[]=allWords,cycleId:string=crypto.randomUUID(),startedAt=new Date().toISOString()):ReviewPlan {
   return {cycleId,startedAt,totalWords:words.length,reviewedWords:0,items:words.map(word=>({word:word.word,reviewedInCurrentCycle:false,wrongCountInCycle:0}))}
 }
