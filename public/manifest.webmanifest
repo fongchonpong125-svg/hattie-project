@@ -1,0 +1,10 @@
+{
+  "name": "Hattie's Word Garden",
+  "short_name": "Word Garden",
+  "description": "Hattie's gentle English word review garden.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf5e5",
+  "theme_color": "#76994d",
+  "orientation": "any"
+}
