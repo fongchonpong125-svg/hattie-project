@@ -12,7 +12,7 @@ export function updateMastery(previous: WordMastery | undefined, correct: boolea
   return { ...base, correctCount: base.correctCount + Number(correct), wrongCount: base.wrongCount + Number(!correct), streak, lastPracticedAt: at, masteryScore, status: statusFor(masteryScore) }
 }
 
-export const calculateScore = (firstTryCorrectCount:number,totalQuestions:number) => firstTryCorrectCount === totalQuestions ? 20 : Math.min(firstTryCorrectCount,15)
+export const calculateScore = (firstTryCorrectCount:number,totalQuestions:number) => firstTryCorrectCount === totalQuestions ? 12 : Math.min(firstTryCorrectCount,10)
 export function createSessionSummary(sessionId:string,mode:SessionMode,records:AnswerRecord[]):SessionSummary {
   const firstTryCorrectCount=records.filter(r=>r.firstTryCorrect).length
   const wrongWords=[...new Set(records.filter(r=>!r.firstTryCorrect).map(r=>r.word))]

@@ -13,10 +13,10 @@ describe('learning rules', () => {
     expect(statusFor(mastery.masteryScore)).toBe('mastered')
   })
 
-  it('awards 20 only for a perfect round and otherwise caps at 15', () => {
-    expect(calculateScore(8, 8)).toBe(20)
+  it('awards 12 only for a perfect round and otherwise caps at 10', () => {
+    expect(calculateScore(8, 8)).toBe(12)
     expect(calculateScore(7, 8)).toBe(7)
-    expect(calculateScore(18, 20)).toBe(15)
+    expect(calculateScore(18, 20)).toBe(10)
   })
 
   it('summarizes first attempts and preserves wrong words', () => {
